@@ -1,4 +1,4 @@
-# car-classsifier
+# Car-classsifier
 This code detects whether an image is lamborghini, porche or ferrari
 
 ## Step 1
