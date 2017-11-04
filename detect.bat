@@ -1,0 +1,1 @@
+python -m label_image --image=tf_files/test_images/my_lamborghini.jpg
