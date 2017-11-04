@@ -68,7 +68,7 @@ def load_labels(label_file):
   return label
 
 if __name__ == "__main__":
-  file_name = "test_images/Ferrari_458_Italia.jpg"
+  file_name = "test_images/my_porche.jpg"
   model_file = "tf_files/retrained_graph.pb"
   label_file = "tf_files/retrained_labels.txt"
   input_height = 299
@@ -121,11 +121,12 @@ if __name__ == "__main__":
   output_name = "import/" + output_layer
   input_operation = graph.get_operation_by_name(input_name);
   output_operation = graph.get_operation_by_name(output_name);
-
+  
   with tf.Session(graph=graph) as sess:
-    results = sess.run(output_operation.outputs[0],
-                      {input_operation.outputs[0]: t})
+    results = sess.run(output_operation.outputs[0], {input_operation.outputs[0]: t})
   results = np.squeeze(results)
+  
+  print(results)
 
   top_k = results.argsort()[-5:][::-1]
   labels = load_labels(label_file)
