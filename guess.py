@@ -25,10 +25,12 @@ images.append(image_3)
 images.append(image_4)
 images.append(image_5)
 
-# Loads label file, strips off carriage return
-label_porche = "Porche"
-label_lamborghini = "Lamborghini"
-label_ferrari = "Ferrari"
+labels = []
+txt = tf.gfile.GFile("tf_files/retrained_labels.txt")
+
+for line in txt:
+    labels.append(line.rstrip())
+
 
 # Read the trained Model File
 trained_model_file = tf.gfile.FastGFile("tf_files/retrained_graph.pb", 'rb').read()
@@ -43,15 +45,14 @@ def predict_what_it_is(sess, image, softmax_tensor):
     prediction = sess.run(softmax_tensor, {'DecodeJpeg/contents:0': image})
     result = prediction[0]
     #Sort the labels in order of confidence 
-    """result = predictions[0]
-    result.sort()
+    """result.sort()
     print(result)"""
-    if(result[0] > 0.5):
-        print(label_porche)
-    elif(result[1] > 0.5):
-        print(label_lamborghini)
-    elif(result[2] > 0.5):
-        print(label_ferrari)
+    if(result[0] > 0.6):
+        print(labels[0])
+    elif(result[1] > 0.6):
+        print(labels[1])
+    elif(result[2] > 0.6):
+        print(labels[2])
     else:
         print("Cant Determine")
 
@@ -65,10 +66,5 @@ with tf.Session() as sess:
         predict_what_it_is(sess, file, softmax_tensor)
     
     
-    
-    
-        
-    
-    
-    
+
     
